@@ -1,0 +1,35 @@
+body { 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
+    margin: 20px;
+    padding: 5%;
+}
+#playerContainer {
+    margin-bottom: 20px;
+}
+ul { 
+    list-style: none; 
+    padding: 0; 
+    width: 100%; 
+    margin: 0 auto; 
+    text-align: left;
+}
+li { 
+    padding: 10px; 
+    cursor: pointer; 
+    border-bottom: 1px solid #ddd; 
+}
+li:hover { 
+    background: #f0f0f0; 
+}
+audio { 
+    width: 100%; 
+}
+#songListContainer {
+    width: 90%; /* Increase width */
+}
+
+#songList {
+    max-height: 300px;
+    overflow-y: auto;
+}
