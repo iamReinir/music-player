@@ -1,4 +1,4 @@
-const API_URL = "http://100.87.230.49:8000/music"; // Update if needed
+const API_URL = "https://100.87.230.49:8000/music"; // Update if needed
 let songs = [];
 
 async function fetchSongs() {
@@ -45,7 +45,7 @@ function drop(event, index) {
     }
 }
 
-/*
+
 function playSong(index) {
     let songTitle = document.getElementById("songTitle");
     let player = document.getElementById("audioPlayer");
@@ -57,7 +57,7 @@ function playSong(index) {
         playSong(nextIndex);
     };
 }
-*/
+/*
 function playSong(index) {
     let songUrl = `${API_URL}/play/${songs[index]}`; // Use Tailscale IP
     let songTitle = document.getElementById("songTitle");
@@ -67,9 +67,14 @@ function playSong(index) {
             let audioUrl = URL.createObjectURL(blob);
             let player = document.getElementById("audioPlayer");
             songTitle.textContent = songs[index]; // Update song name
-            player.src = audioUrl;
+            player.src = audioUrl;	  
             player.play();
+	    player.onended = () => {
+                let nextIndex = (index + 1) % songs.length; // Loop back after last song
+                playSong(nextIndex);
+            };
         })
         .catch(error => console.error("Error loading song:", error));
 }
+*/
 fetchSongs();
