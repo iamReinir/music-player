@@ -1,6 +1,6 @@
 const API_URL = "https://100.87.230.49:8000/music"; // Update if needed
 let songs = [];
-
+let g_index = 0;
 async function fetchSongs() {
     let response = await fetch(`${API_URL}/songs`);
     songs = await response.json();
@@ -47,6 +47,7 @@ function drop(event, index) {
 
 
 function playSong(index) {
+    g_index = index;
     let songTitle = document.getElementById("songTitle");
     let player = document.getElementById("audioPlayer");
     player.src = `${API_URL}/play/${songs[index]}`;
@@ -57,6 +58,15 @@ function playSong(index) {
         playSong(nextIndex);
     };
 }
+
+document.getElementById("prev-btn").addEventListener("click", () => {
+    playSong((g_index - 1) % songs.length);
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+    playSong((g_index + 1) % songs.length);
+});
+
 /*
 function playSong(index) {
     let songUrl = `${API_URL}/play/${songs[index]}`; // Use Tailscale IP
@@ -78,3 +88,4 @@ function playSong(index) {
 }
 */
 fetchSongs();
+
