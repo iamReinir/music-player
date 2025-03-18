@@ -9,6 +9,17 @@ body {
 #playerContainer {
     margin-bottom: 20px;
 }
+
+#searchInput {
+    background-color: #1e1e1e !important;  /* Dark background */
+    color: #e0e0e0 !important;            /* Light text */
+    border: 1px solid #333 !important;    /* Darker border */
+}
+
+#searchInput::placeholder {
+    color: #bbb !important;               /* Light gray placeholder */
+}
+
 ul { 
     list-style: none; 
     padding: 0; 

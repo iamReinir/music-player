@@ -67,6 +67,22 @@ document.getElementById("next-btn").addEventListener("click", () => {
     playSong((g_index + 1) % songs.length);
 });
 
+document.getElementById("searchInput").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
+    const songs = document.querySelectorAll("#songList li");
+    let count = 0;
+    songs.forEach(song => {
+        const text = song.textContent.toLowerCase();
+        if (text.includes(query)) {
+            ++count;
+            song.style.border = "2px solid #4a90e2"; // mark found song
+        } else {
+            song.style.border = "1px solid #333"; // back to normal
+        }
+    });
+    document.getElementById("searchResult").innerHTML = "Song count : " + count;
+});
+
 /*
 function playSong(index) {
     let songUrl = `${API_URL}/play/${songs[index]}`; // Use Tailscale IP
