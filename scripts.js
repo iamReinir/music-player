@@ -69,7 +69,7 @@ function playSong(index) {
             songTitle.textContent = songs[index]; // Update song name
             player.src = audioUrl;	  
             player.play();
-	    player.onended = () => {
+            player.onended = () => {
                 let nextIndex = (index + 1) % songs.length; // Loop back after last song
                 playSong(nextIndex);
             };
