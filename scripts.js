@@ -12,17 +12,34 @@ function renderSongs() {
     list.innerHTML = "";
     songs.forEach((song, index) => {
         let li = document.createElement("li");
-        li.textContent = song;
-        li.classList.add("list-group-item", "list-group-item-action");
+        li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
         li.draggable = true;
+        let textSpan = document.createElement("span");
+        textSpan.textContent = song;
 
         li.onclick = () => playSong(index);
         li.ondragstart = (e) => dragStart(e, index);
         li.ondragover = (e) => e.preventDefault();
         li.ondrop = (e) => drop(e, index);
+        // Remove Button
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "❌";
+        removeButton.classList.add("btn", "btn-sm", "ms-2");
+        removeButton.onclick = (e) => {
+            e.stopPropagation(); // Prevent accidental playback
+            removeFromPlaylist(index);
+        };
+
+        li.appendChild(textSpan); // Song name on the left
+        li.appendChild(removeButton);
 
         list.appendChild(li);
     });
+}
+
+function removeFromPlaylist(index) {
+    songs.splice(index, 1);
+    renderSongs();
 }
 
 function shuffleSongs() {
@@ -82,6 +99,7 @@ document.getElementById("searchInput").addEventListener("input", function() {
     });
     document.getElementById("searchResult").innerHTML = "Song count : " + count;
 });
+
 
 /*
 function playSong(index) {
