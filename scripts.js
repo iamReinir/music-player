@@ -1,9 +1,10 @@
 const API_URL = "https://100.87.230.49:8000/music"; // Update if needed
 let songs = [];
-let g_index = 0;
+let g_index = 1;
 async function fetchSongs() {
     let response = await fetch(`${API_URL}/songs`);
     songs = await response.json();
+    let player = document.getElementById("audioPlayer");
     renderSongs();
 }
 
@@ -74,6 +75,28 @@ function playSong(index) {
         let nextIndex = (index + 1) % songs.length; // Loop back after last song
         playSong(nextIndex);
     };
+
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: songTitle.textContent
+        });
+      
+        navigator.mediaSession.setActionHandler('play', () => {
+            player.play();
+        });
+      
+        navigator.mediaSession.setActionHandler('pause', () => {
+            player.pause();
+        });
+      
+        navigator.mediaSession.setActionHandler('previoustrack', () => {
+            playSong((g_index - 1) % songs.length);
+        });
+      
+        navigator.mediaSession.setActionHandler('nexttrack', () => {
+            playSong((g_index + 1) % songs.length);
+        });
+      }
 }
 
 document.getElementById("prev-btn").addEventListener("click", () => {
@@ -121,5 +144,10 @@ function playSong(index) {
         .catch(error => console.error("Error loading song:", error));
 }
 */
+
+
+
+
+
 fetchSongs();
 
